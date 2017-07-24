@@ -16,7 +16,7 @@
       <ul>
         <img src="/images/Puppet-Logo-Amber-White-sm.png" alt="logo" id="nav-logo">
         <% if @existinguser || privileged? %>
-          <li><a href="#home" class="cache">Shell</a></li>
+          <li><a href="#home">Shell</a></li>
           <li><a href="/users">Users</a></li>
           <% @tabs.each do |url, title| %>
             <li><a href="/<%= url %>"><%= title %></a></li>

@@ -40,6 +40,7 @@ $(document).ready(function(){
     var action = $(this).attr('href');
 
     $.get(action, function(data) {
+      console.log("get");
       updatePage();
     });
   });

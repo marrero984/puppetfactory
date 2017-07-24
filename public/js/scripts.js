@@ -26,5 +26,6 @@ function updatePage(name) {
     var idx = $("#tabs").tabs("option","active");
   }
 
+  console.log("updating index: " + idx);
   $("#tabs").tabs('load', idx);
 }

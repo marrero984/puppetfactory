@@ -70,6 +70,9 @@ class Puppetfactory < Sinatra::Base
   end
 
   get '/shell' do
+    @users   = load_users()
+    @current = merge(plugins(:userinfo, session[:username], true)) if session.include? :username
+
     erb :shell
   end
   # End UI tabs
