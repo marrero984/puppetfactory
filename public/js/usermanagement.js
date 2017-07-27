@@ -39,9 +39,7 @@ $(document).ready(function(){
     event.preventDefault();
     var action = $(this).attr('href');
 
-    $.get(action, function(data) {
-      updatePage();
-    });
+    $.get(action, function(data) {});
   });
 
   // save the new user
@@ -73,9 +71,7 @@ $(document).ready(function(){
       $.post('/new', {username: username, password: password, session: session}, function(data) {
         console.log(data);
         var results = jQuery.parseJSON(data);
-        if(results.status == 'success') {
-          updatePage();
-        }
+        if(results.status == 'success') {}
         else {
           stop_processing();
           alert("Could not create user:\n" + results.message);
@@ -84,9 +80,7 @@ $(document).ready(function(){
         stop_processing();
         alert("Could not create user:\n" + jqXHR.responseText);
       });
-
     }
-
   });
 
   $('#deploy').click(function(){

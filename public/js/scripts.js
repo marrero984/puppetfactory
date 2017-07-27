@@ -1,30 +1,9 @@
 $(document).ready(function(){
-  // activate tabs
-  $('#tabs').tabs({
-    beforeLoad: function (event, ui) {
-      var keepLoading = true;
+  $('.collapsed').hide();
 
-      // Is the <a> tag is classified with 'cache'?
-      if (ui.tab.children("a").first().hasClass("cache")) {
-        keepLoading = (ui.panel.html() == "");
-      }
-
-      if(ui.panel.html() == "") {
-        ui.panel.html('Loading...');
-      }
-
-      return keepLoading;
-    },
+  $('.collapsible').on('click', function() {
+    $(this).find('.fa').toggleClass('fa-rotate-90');
+    var target = $("#" + this.dataset.target);
+    target.toggle(200);
   });
 });
-
-function updatePage(name) {
-  if (name) {
-    var idx = $("#tabs > ul > li:contains("+name+")").index();
-  }
-  else {
-    var idx = $("#tabs").tabs("option","active");
-  }
-
-  $("#tabs").tabs('load', idx);
-}
