@@ -1,3 +1,8 @@
+* {
+  transition-duration: .2s;
+  transition-timing-function: ease-out;
+}
+
 body {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   color: #222;
@@ -88,7 +93,6 @@ li {
 }
 
 table {
-  width: 100%;
   border-spacing: 0;
 }
 
@@ -98,8 +102,15 @@ th, td {
 }
 
 tr:nth-child(2n+2) {
-  background: #dedede;
+  background: #eeeeee;
 }
+
+.flex-wrapper {
+  display: flex;
+}
+
+.flex-wrapper #shell       { flex: 5; }
+.flex-wrapper #currentuser { flex: 3; }
 
 .right {
   float: right;
@@ -117,6 +128,10 @@ tr:nth-child(2n+2) {
 
 .ui-dialog-titlebar-close {
   display: none;
+}
+
+#deploy {
+  margin: 1em;
 }
 
 #nav-logo {
@@ -141,7 +156,7 @@ tr:nth-child(2n+2) {
 }
 
 #newuser.processing input {
-  background: #dedede;
+  background: #eeeeee;
   border: #4e4e4e;
 }
 
@@ -156,7 +171,7 @@ tr:nth-child(2n+2) {
   width: 25%;
   max-width: 100%;
   padding: 8px 12px;
-  border: 2px solid #dedede;
+  border: 2px solid #eeeeee;
   outline: none;
 }
 
@@ -166,11 +181,15 @@ tr:nth-child(2n+2) {
 }
 
 #currentuser {
-  margin-bottom: 4em;
+  margin-left: 1em;
+}
+
+#currentuser table {
+  margin-left: 1em;
+  width: 100%;
 }
 
 #currentuser th.header {
-  width: 10%;
   white-space: nowrap;
   text-align: right;
   padding-right: 1em;
@@ -197,14 +216,8 @@ tr:nth-child(2n+2) {
   resize: vertical;
 }
 
-#alternate,
 #explanation {
   display: none;
-}
-
-#show-alternate {
-  float: right;
-  margin-left: 0.5em;
 }
 
 #notifications {
