@@ -58,6 +58,7 @@ class Puppetfactory < Sinatra::Base
   get '/' do
     @tabs = merge(plugins(:tabs, privileged?))
     @existinguser = session.include? :username
+    @current = merge(plugins(:userinfo, session[:username], true)) if session.include? :username
 
     erb :index
   end
@@ -78,6 +79,7 @@ class Puppetfactory < Sinatra::Base
   get '/users/active/:username' do |username|
     session[:username] = username
     {"status" => "ok"}.to_json
+    redirect '/'
   end
 
   # admin login

@@ -1,42 +1,109 @@
-<div id="shell">
-  <p>
-    <input type="button" id="show-alternate" value="Other ways to log in" />
-    Shell accounts have been created for each student for editing code and
-    running Puppet interactively. Log in using the user account and credentials
-    you created.
-  </p>
-  <p>
+<p>
+  Shell accounts have been created for each student for editing code and
+  running Puppet interactively. Log in using the user account and credentials
+  you created.
+</p>
+
+<div class="flex-wrapper">
+  <div id="shell">
     <iframe id="console" src="/shell/login/"></iframe>
-  </p>
-  <div id="alternate" title="Alternate Login Methods">
+  </div>
+
+  <% if @current %>
+  <div id="currentuser">
+    <table>
+      <tr>
+        <th class="header">Username:</th>
+        <td><%= @current[:username] %></td>
+      </tr>
+      <tr>
+        <th class="header">Certname:</th>
+        <td><%= @current[:certname] %></td>
+      </tr>
+      <% if @current[:port] -%>
+      <tr>
+        <th class="header">Webserver URL:</th>
+        <td><a href="/port/<%= @current[:port] %>/"><%= @current[:url] %></a></td>
+      </tr>
+      <% end -%>
+      <% if @current[:container_status] -%>
+      <tr>
+        <th class="header">Container:</th>
+        <td><%= @current[:container_status]['Description'] %></td>
+      </tr>
+      <% end -%>
+      <% if @current[:node_group_url] -%>
+      <tr>
+        <th class="header">Node Group:</th>
+        <td><a href="https://<%= request.host %>/<%= @current[:node_group_url] %>" target="_console">Console login</a></td>
+      </tr>
+      <% end -%>
+      <% if @current[:controlrepo] -%>
+      <tr>
+        <th class="header">Control Repo:</th>
+        <td><a href="<%= @current[:controlrepo] %>" target="_repository"><%= @current[:controlrepo] %></a></td>
+      </tr>
+      <% end -%>
+      <% if @current[:latestcommit] -%>
+      <tr>
+        <th class="header">Latest Commit:</th>
+        <td>
+          <a href="<%= @current[:latestcommit][:url] %>" target="_repository"><%= @current[:latestcommit][:message] %></a>
+          <small>(<%= @current[:latestcommit][:time] %>)</small>
+        </td>
+      </tr>
+      <% end -%>
+      <% if settings.plugins.include? :Dashboard -%>
+      <tr>
+        <th class="header">Spec Tests:</th>
+        <td><a href="/dashboard/details/<%= @current[:username] %>" target="_results">results</a> <small>(may not always be available)</small></td>
+      </tr>
+      <% end -%>
+      <% if @current[:tree] -%>
+      <tr>
+        <th class="header">Environment Structure:</th>
+        <td><div id="tree"></div></td>
+      </tr>
+      <% end -%>
+    </table>
+    <% if action_enabled? :deploy -%>
+    <input type="button" id="deploy" data-user="<%= @current[:username] %>" value="Deploy Environment">
+    <% end -%>
+  </div>
+  <% end %>
+</div>
+
+<div>
+  <h4 class="collapsible" data-target="alternate">
+    <i class="fa fa-chevron-right"></i> Alternate Login Methods
+  </h4>
+  <div id="alternate" class="collapsed">
     <p>
       If you prefer, you may also use any standard SSH client using the username
       and password you specified. Some common SSH clients include:
     <p>
-    <ul>
-      <li>
-        Built-in to Mac OSX and Linux:
-        <ol>
-          <li>Start Terminal.app or any terminal emulator to get to the command line</li>
-          <li>Run <code>ssh <%= request.host %></code></li>
-        </ol>
-      </li>
-      <li>
-        Windows:
-        <ul>
-          <li><a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">PuTTY</a></li>
-          <li><a href="http://winscp.net/eng/download.php#download2" target="_new">WinSCP</a></li>
-          <li><a href="http://www.vandyke.com/download/securecrt/download.html" target="_new">SecureCRT</a></li>
-        </ul>
-      </li>
-    </ul>
+    <div>
+      Mac OSX and Linux:
+      <ol>
+        <li>Start Terminal.app or any terminal emulator to get to the command line</li>
+        <li>Run <code>ssh <%= request.host %></code></li>
+      </ol>
+      Windows:
+      <ul>
+        <li><a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">PuTTY</a></li>
+        <li><a href="http://winscp.net/eng/download.php#download2" target="_new">WinSCP</a></li>
+        <li><a href="http://www.vandyke.com/download/securecrt/download.html" target="_new">SecureCRT</a></li>
+      </ul>
+    </div>
   </div>
 </div>
 
-<h3>Resources:</h3>
-<ul>
-  <li><a href="http://<%= request.host %>:9090" target="_showoff">Course Material Presentation</a> - Follow along with the instructor's slides, or navigate it independently.</li>
-  <li><a href="https://<%= request.host %>" target="_console">Puppet Enterprise Console</a> - Log into the PE Console using the credentials of the user account you created.</li>
-</ul>
-
-<script type="text/javascript" src="js/loginscripts.js"></script>
+<div>
+  <h4 class="collapsible" data-target="resources">
+    <i class="fa fa-chevron-right"></i> Resources
+  </h4>
+  <div id="resources" class="collapsed">
+    <p><a href="http://<%= request.host %>:9090" target="_showoff">Course Material Presentation</a> - Follow along with the instructor's slides, or navigate it independently.</p>
+    <p><a href="https://<%= request.host %>" target="_console">Puppet Enterprise Console</a> - Log into the PE Console using the credentials of the user account you created.</p>
+  </div>
+</div>
