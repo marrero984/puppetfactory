@@ -295,7 +295,6 @@ class Puppetfactory < Sinatra::Base
         session[:privileges] = 'admin'
         true
       else
-        remove_privileges!
         false
       end
     end
